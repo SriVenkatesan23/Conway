@@ -13,7 +13,7 @@ public class GameOfLife extends JFrame implements MouseListener,KeyListener{
 
 	private static final long serialVersionUID = 1L;
 	static int size = 15;
-	static Board gameBoard = new Board(size); //creating gameBoard  ************MAKE VOLATILE????**********
+	static Board gameBoard = new Board(size); //creating gameBoard 
 	static volatile boolean runningSim = false; //will be used to determine if simulation is running,
 	//volatile means the value will be same across all threads
 	
