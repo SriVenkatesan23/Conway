@@ -5,7 +5,6 @@ import java.awt.Graphics;
 public class Board {
 
 	Cell[][] board;
-
 	final int x = 59;  //board position should never change
 	final int y = 110;
 	final int width = 560;
@@ -22,7 +21,6 @@ public class Board {
 	 * initializes tile pointers, adds bombs to the board, and increments the tiles' 
 	 * 
 	 */
-
 	public Board(int size){
 		hw=size;
 		this.board = new Cell[hw][hw];
@@ -43,18 +41,6 @@ public class Board {
 				if(board[r][c].contains(checkX, checkY)){
 					board[r][c].alive=!board[r][c].alive; //if alive, make dead; vice versa
 					this.board=setAllNeighborCounts();
-
-					/*
-					for(int a=0;a<hw;a++){
-						for(int b=0;b<hw;b++){
-							System.out.print(" "+ this.board[a][b].liveNeighbors);
-						}
-						System.out.println("");
-					}
-					System.out.println("");
-					*/
-					
-					
 					return this;
 				}
 			}
@@ -126,6 +112,6 @@ public class Board {
 		return this.board;
 	}
 
-
+	
 
 }

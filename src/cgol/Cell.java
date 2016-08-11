@@ -26,7 +26,7 @@ public class Cell{
 		return (checkX > x) && (checkY > y) && (checkX < x + width) && (checkY < y + height);
 	}
 	/**
-	 * increments number of neighbors that are alive
+	 * displays white square for live, black square for dead
 	 */
 	public void display(Graphics g) //used to actually print out the Cell
 	{

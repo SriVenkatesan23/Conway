@@ -12,7 +12,7 @@ import java.awt.event.MouseListener;
 public class GameOfLife extends JFrame implements MouseListener,KeyListener{
 
 	private static final long serialVersionUID = 1L;
-	static int size = 25;
+	static int size = 15;
 	static Board gameBoard = new Board(size); //creating gameBoard  ************MAKE VOLATILE????**********
 	static volatile boolean runningSim = false; //will be used to determine if simulation is running,
 	//volatile means the value will be same across all threads
@@ -47,7 +47,7 @@ public class GameOfLife extends JFrame implements MouseListener,KeyListener{
 			for(int c=0;c<size;c++){
 				if(gameBoard.board[r][c].alive){
 					if(gameBoard.board[r][c].liveNeighbors<2) future.board[r][c].alive=false;
-					else if(gameBoard.board[r][c].liveNeighbors==2 || gameBoard.board[r][c].liveNeighbors==3) future.board[r][c].alive=true;
+					else if(gameBoard.board[r][c].liveNeighbors<4) future.board[r][c].alive=true;
 					else if(gameBoard.board[r][c].liveNeighbors>3) future.board[r][c].alive=false;
 				}
 				else{ //dead
@@ -59,7 +59,7 @@ public class GameOfLife extends JFrame implements MouseListener,KeyListener{
 		repaint();
 	}
 	/**
-	 * Initializes window in which the game will be played
+	 * Initializes window in which the sim will be played
 	 */
 	public GameOfLife() 
 	{
@@ -70,9 +70,7 @@ public class GameOfLife extends JFrame implements MouseListener,KeyListener{
 	}
 
 	/**
-	 * Displays gameBoard, as well as the MINESWEEPER title at beginning
-	 * and information pertinent to the player
-	 * Prints win/lose statements
+	 * Displays gameBoard
 	 */
 	public void paint(Graphics g)
 	{
@@ -84,16 +82,13 @@ public class GameOfLife extends JFrame implements MouseListener,KeyListener{
 	}
 
 	public void keyPressed(KeyEvent e ){ //press space to start/stop simulation
-
 		int code = e.getKeyCode(); 
 		if (code == KeyEvent.VK_SPACE){
 			if(runningSim){
 				runningSim=false;
-				System.out.println(runningSim); //debug code: value IS being set for runningSim
 			}
 			else{
 				runningSim=true;
-				System.out.println(runningSim);
 			}
 		}
 	}
@@ -105,34 +100,22 @@ public class GameOfLife extends JFrame implements MouseListener,KeyListener{
 	}
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
 	}
-
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
 	}
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
-
 	}
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 
