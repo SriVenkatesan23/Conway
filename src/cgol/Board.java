@@ -1,7 +1,6 @@
 package cgol;
 
 import java.awt.Graphics;
-import java.util.*;
 
 public class Board {
 
@@ -11,7 +10,7 @@ public class Board {
 	final int y = 110;
 	final int width = 560;
 	final int height = 560; 
-	int hw; //number of tiles on the board
+	static int hw; //number of tiles on the board
 
 	/**
 	 * 
@@ -27,7 +26,8 @@ public class Board {
 	public Board(int size){
 		hw=size;
 		this.board = new Cell[hw][hw];
-		this.board = setCellNeighbors(); //sets each tile's right up down etc neighbor
+		this.board = this.setCellNeighbors(); //sets each tile's right up down etc neighbor
+		this.board = this.setAllNeighborCounts(); 
 	}
 
 	/**
@@ -42,6 +42,19 @@ public class Board {
 			for(int c = 0; c < hw; c++){
 				if(board[r][c].contains(checkX, checkY)){
 					board[r][c].alive=!board[r][c].alive; //if alive, make dead; vice versa
+					this.board=setAllNeighborCounts();
+
+					/*
+					for(int a=0;a<hw;a++){
+						for(int b=0;b<hw;b++){
+							System.out.print(" "+ this.board[a][b].liveNeighbors);
+						}
+						System.out.println("");
+					}
+					System.out.println("");
+					*/
+					
+					
 					return this;
 				}
 			}
@@ -56,6 +69,10 @@ public class Board {
 			}
 		}
 	}
+	/**
+	 * goes through board and sets neighbor pointers of each Cell
+	 * @return
+	 */
 	public Cell[][] setCellNeighbors(){
 		for(int r = 0; r < hw; r++){
 			for (int c = 0; c < hw; c++){
@@ -90,19 +107,25 @@ public class Board {
 				}
 			}
 		}
-		return board;
+		return this.board;
 	}
 	public Cell[][] setAllNeighborCounts(){
-
-		for(int r=0;r<hw;r++){
-			for(int c=0;c<hw;c++){
-				this.board[r][c].liveNeighbors();
-				this.board[r][c].setStatus();
+		for(int r = 0; r < hw; r++){
+			for (int c = 0; c < hw; c++){
+				board[r][c].liveNeighbors=0;
+				if( board[r][c].right!=null && board[r][c].right.alive) board[r][c].liveNeighbors++;
+				if( board[r][c].left!=null && board[r][c].left.alive) board[r][c].liveNeighbors++;
+				if( board[r][c].up!=null && board[r][c].up.alive) board[r][c].liveNeighbors++;
+				if( board[r][c].down!=null && board[r][c].down.alive) board[r][c].liveNeighbors++;
+				if( board[r][c].dright!=null && board[r][c].dright.alive) board[r][c].liveNeighbors++;
+				if( board[r][c].dleft!=null && board[r][c].dleft.alive) board[r][c].liveNeighbors++;
+				if( board[r][c].tright!=null && board[r][c].tright.alive) board[r][c].liveNeighbors++;
+				if( board[r][c].tleft!=null && board[r][c].tleft.alive) board[r][c].liveNeighbors++;
 			}
 		}
-		return this.board;	
+		return this.board;
 	}
-	
+
 
 
 }
