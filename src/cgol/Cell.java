@@ -4,12 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 public class Cell{
 
-	public boolean alive; //whether or not this tile contains a mine
+	public boolean alive; //whether or not this cell is a living cell
 	public int liveNeighbors; //keeps track of how many neighbors are alive
 	public int x,y,width,height; //determined by board dimensions divided by # of tiles
-	public Cell right,left,up,down,tright,tleft,dright,dleft; //pointers to neighbors; will be used to increment bombsNearBy
+	public Cell right,left,up,down,tright,tleft,dright,dleft; //pointers to neighbors; will be used to increment liveNeighbors
 	
-	public Cell(int startX, int startY, int startWidth, int startHeight) //constructor for each tile
+	public Cell(int startX, int startY, int startWidth, int startHeight) //constructor for each Cell
 	{
 		x = startX;
 		y = startY;

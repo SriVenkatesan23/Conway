@@ -9,7 +9,7 @@ public class Board {
 	final int y = 110;
 	final int width = 560;
 	final int height = 560; 
-	static int hw; //number of tiles on the board
+	static int hw; //number of Cells on the board
 
 	/**
 	 * 
@@ -18,7 +18,7 @@ public class Board {
 	 * @param width 
 	 * @param height
 	 * @param size = the height/width of the board i.e. size of 12 leads to 12x12 sim
-	 * initializes tile pointers, adds bombs to the board, and increments the tiles' 
+	 * initializes Cell neighbor pointers and increments the Cells' liveNeighbor counts
 	 * 
 	 */
 	public Board(int size){
@@ -29,8 +29,7 @@ public class Board {
 	}
 
 	/**
-	 * maybe make hash function for constant access? 
-	 * 
+	 * To add: maybe make hash function for constant access? 
 	 * @param checkX - x coord of click
 	 * @param checkY - y coord of click
 	 * @return board after click
