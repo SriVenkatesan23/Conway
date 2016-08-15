@@ -15,14 +15,14 @@ public class GameOfLife extends JFrame implements MouseListener,KeyListener{
 	static int size = 15;
 	static Board gameBoard = new Board(size); //creating gameBoard 
 	static volatile boolean runningSim = false; //will be used to determine if simulation is running,
-	//volatile means the value will be same across all threads
-	
+	//volatile means the value will be fetched from memory every time
+
 	public static void main(String[] args){
 		GameOfLife m = new GameOfLife();
 		m.getContentPane().setBackground(Color.darkGray);
 		m.setSize(700,700);
 		m.setVisible(true);
-		
+
 		while(true){ 
 			while(runningSim){ 
 				try{
@@ -41,22 +41,50 @@ public class GameOfLife extends JFrame implements MouseListener,KeyListener{
 	 * set current gen array to future array
 	 * repaint
 	 */
-	public void simulate(){ //not being accessed
+	public void simulate(){
 		Board future = new Board(size);
+		boolean changed=false;
 		for(int r=0;r<size;r++){
 			for(int c=0;c<size;c++){
+				
+				/**
+				 * Rules:
+				 * 
+				 * 1) Any living cell with <2 neighbors dies, as if from underpopulation
+				 * 2) Any living cell with exactly 2 or 3 neighbors lives
+				 * 3) Any living cell with 4 or more neighbors dies, as if from overpopulation
+				 * 4) Any dead cell with exactly 3 neighbors becomes alive, as if from reproduction
+				 * 
+				 */
+				
 				if(gameBoard.board[r][c].alive){
-					if(gameBoard.board[r][c].liveNeighbors<2) future.board[r][c].alive=false;
+					if(gameBoard.board[r][c].liveNeighbors<2) {
+						future.board[r][c].alive=false;
+						changed=true;
+					}
 					else if(gameBoard.board[r][c].liveNeighbors<4) future.board[r][c].alive=true;
-					else if(gameBoard.board[r][c].liveNeighbors>3) future.board[r][c].alive=false;
+					
+					else if(gameBoard.board[r][c].liveNeighbors>3){
+						future.board[r][c].alive=false;
+						changed=true;
+					}
 				}
 				else{ //dead
-					if(gameBoard.board[r][c].liveNeighbors==3) future.board[r][c].alive=true;
+					if(gameBoard.board[r][c].liveNeighbors==3){
+						future.board[r][c].alive=true;
+						changed = true;
+					}
 				}	
+				
+				
+				
 			}	
 		}
-		gameBoard.board=future.board;
-		repaint();
+
+		if(changed){
+			gameBoard.board=future.board;
+			repaint();
+		}
 	}
 	/**
 	 * Initializes window in which the sim will be played
