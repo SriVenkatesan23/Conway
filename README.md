@@ -12,9 +12,8 @@
 
 
 **Implementation Details**
-> Coded entirely in Java, using javax.Swing library
-> Can be run from desktop
->
+> Coded entirely in Java, using javax.Swing library. Can be run from desktop
+
 
 **Further Improvements**
 >1. Currently uses paint() to display grid and repaint() to update grid through generations. This causes the screen to flicker 
